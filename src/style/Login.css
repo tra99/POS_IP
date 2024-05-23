@@ -1,0 +1,56 @@
+/* src/components/Login.css */
+.login-container {
+    display: flex;
+    height: 100vh; /* Full height */
+    width: 100vw; /* Full width */
+  }
+  
+  .login-row {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+  
+  .login-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f2f5;
+    width: 50%; /* Adjust as needed */
+    height: 100%; /* Ensure full height */
+  }
+  
+  .login-logo {
+    width: 70%; /* Increase size */
+    height: auto;
+  }
+  
+  .login-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%; /* Adjust as needed */
+    height: 100%; /* Ensure full height */
+    padding: 20px;
+  }
+  
+  /* .login-form h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2.5rem; 
+  } */
+  
+  /* .ant-form-item {
+    margin-bottom: 1.5rem; 
+  } */
+  
+  /* .ant-input,
+  .ant-input-password {
+    font-size: 1.25rem;
+    padding: 0.75rem; 
+  } */
+  
+  /* .ant-btn {
+    font-size: 1.25rem;
+    padding: 0.75rem 1.5rem; 
+  } */
+  
