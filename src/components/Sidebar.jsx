@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import { Menu } from 'antd';
 import {
   PieChartOutlined,
@@ -7,42 +6,62 @@ import {
   BarChartOutlined,
   DownSquareOutlined,
   WechatOutlined,
-  SettingOutlined
+  SettingOutlined,
 } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 
-function getItem(label, key, icon, children) {
+const getItem = (label, key, icon) => {
   return {
     key,
     icon,
-    children,
     label,
   };
-}
+};
 
 const items = [
-  getItem('Dashboard', '/dashboard', <PieChartOutlined />),
-  getItem('Menu', '/menu', <MenuOutlined />),
-  getItem('Order', '/order', <BarChartOutlined />),
-  getItem('Customer', '/customer', <TeamOutlined />),
-  getItem('Promotion', '/promotion', <DownSquareOutlined />),
-  getItem('Chat', '/chat', <WechatOutlined />),
-  getItem('Setting', '/setting', <SettingOutlined />),
+  getItem('Dashboard', '1', <PieChartOutlined />),
+  getItem('Menu', '2', <MenuOutlined />),
+  getItem('Order', '3', <BarChartOutlined />),
+  getItem('Customer', '4', <TeamOutlined />),
+  getItem('Promotion', '5', <DownSquareOutlined />),
+  getItem('Setting', '6', <SettingOutlined />),
 ];
 
 const Sidebar = () => {
   const navigate = useNavigate();
 
-  const handleMenuClick = (e) => {
-    navigate(e.key);
+  const onClick = (e) => {
+    switch (e.key) {
+      case '1':
+        navigate('/dashboard');
+        break;
+      case '2':
+        navigate('/menu');
+        break;
+      case '3':
+        navigate('/order');
+        break;
+      case '4':
+        navigate('/customer');
+        break;
+      case '5':
+        navigate('/promotion');
+        break;
+      case '6':
+        navigate('/setting');
+        break;
+      default:
+        break;
+    }
   };
 
   return (
     <Menu
       theme="light"
-      defaultSelectedKeys={['/dashboard']}
+      defaultSelectedKeys={['1']}
       mode="inline"
       items={items}
-      onClick={handleMenuClick}
+      onClick={onClick}
     />
   );
 };

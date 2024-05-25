@@ -1,3 +1,4 @@
+// src/App.jsx
 import React, { useState } from 'react';
 import { Layout, theme } from 'antd';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
@@ -7,14 +8,13 @@ import MenuComponent from './components/Menu';
 import Order from './components/Order';
 import Customer from './components/Customer';
 import Promotion from './components/Promotion';
-import Chat from './components/Chat';
 import Setting from './components/Setting';
-import Login from './authentication/Login';
 
 const { Header, Content, Sider } = Layout;
 
 const App = () => {
-  const [isAuth, setIsAuth] = useState(false);
+  const [isAuth, setIsAuth] = useState(true); // Set default to true for testing
+
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -59,7 +59,6 @@ const App = () => {
                   <Route path="/order" element={<Order />} />
                   <Route path="/customer" element={<Customer />} />
                   <Route path="/promotion" element={<Promotion />} />
-                  <Route path="/chat" element={<Chat />} />
                   <Route path="/setting" element={<Setting />} />
                   <Route path="*" element={<Navigate to="/dashboard" />} /> {/* Default route */}
                 </Routes>
@@ -67,10 +66,7 @@ const App = () => {
             </Layout>
           </>
         ) : (
-          <Routes>
-            <Route path="/login" element={<Login setAuth={setIsAuth} />} />
-            <Route path="*" element={<Navigate to="/login" />} /> {/* Redirect all unknown routes to login */}
-          </Routes>
+          <Navigate to="/login" replace />
         )}
       </Layout>
     </Router>

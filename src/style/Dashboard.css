@@ -1,0 +1,38 @@
+.dashboard-container {
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap; /* Allow cards to wrap to the next row */
+  }
+  
+  .earnings-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow cards to wrap to the next row */
+  }
+  
+  .earning-card {
+    flex: 1; /* Each card will take up equal space */
+    margin: 10px; /* Add some margin between cards */
+    min-width: 200px; /* Set a minimum width for each card */
+    max-width: 300px; /* Set a maximum width for each card */
+  }
+  
+  
+  .earning-card {
+    width: 25%;
+  }
+  
+  .best-seller-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .best-seller-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+  }
+  
+  .sales {
+    font-weight: bold;
+  }
+  
