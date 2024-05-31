@@ -1,0 +1,21 @@
+/* src/style/Menu.css */
+.menu-card {
+    max-height: 80vh; /* Adjust height as needed */
+    overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .menu-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .menu-item {
+    background-color: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 4px;
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  

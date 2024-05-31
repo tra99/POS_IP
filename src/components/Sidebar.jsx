@@ -5,7 +5,6 @@ import {
   MenuOutlined,
   BarChartOutlined,
   DownSquareOutlined,
-  WechatOutlined,
   SettingOutlined,
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
