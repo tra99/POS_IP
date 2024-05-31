@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Row, Col, Card, Statistic, Table, Tag, Pagination,Input,Space } from 'antd';
+import { Row, Col, Card, Statistic, Table, Tag, Pagination } from 'antd';
 import { Bar, Pie } from '@ant-design/charts';
-import { DollarOutlined ,AudioOutlined} from '@ant-design/icons';
+import { DollarOutlined} from '@ant-design/icons';
 import '../style/Dashboard.css';
 
 
@@ -62,8 +62,6 @@ const Dashboard = () => {
     isGroup: true,
     legend: { position: 'top' },
   };
-  
-  
 
   const pieConfig = {
     appendPadding: 10,
@@ -91,6 +89,7 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-container">
+      
       <div className="earnings-container">
         <div className="earning-card">
         <Card>

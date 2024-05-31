@@ -84,8 +84,8 @@
 
 // export default App;
 // src/App.jsx
-import React, { useState } from 'react';
-import { Layout, theme } from 'antd';
+import { useState } from 'react';
+import { Layout, theme ,Input} from 'antd';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import Dashboard from './components/Dashboard';
@@ -94,11 +94,15 @@ import Order from './components/Order';
 import Customer from './components/Customer';
 import Promotion from './components/Promotion';
 import Setting from './components/Setting';
+import './style/Dashboard.css';
+import { BellOutlined} from '@ant-design/icons';
 
 const { Header, Content, Sider } = Layout;
 
 const App = () => {
-  const [isAuth, setIsAuth] = useState(true); // Set default to true for testing
+  const [isAuth, setIsAuth] = useState(true);
+  const { Search } = Input;
+  const onSearch = (value, _e, info) => console.log(info?.source, value);
 
   const {
     token: { colorBgContainer },
@@ -127,12 +131,24 @@ const App = () => {
               <Sidebar />
             </Sider>
             <Layout>
-              <Header
-                style={{
-                  padding: 20,
-                  background: colorBgContainer,
-                }}
-              />
+            <div className="header" >
+              <h1 className="text1" >Dashboard</h1>
+              <div className='text2'>
+                <Search
+                  placeholder="input search text"
+                  onSearch={onSearch}
+                  style={{
+                    width: 200,
+                  }}
+                />
+                <div className="image-container">
+                  <BellOutlined style={{fontSize:"20px"}}/>
+                </div>
+                <div className="image-container">
+                  <img src="src/assets/cat.png" alt="Logo" className="login-logo" />
+                </div>
+              </div>
+            </div>
               <Content
                 style={{
                   margin: '0 16px',
