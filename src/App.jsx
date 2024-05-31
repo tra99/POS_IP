@@ -1,4 +1,3 @@
-// src/App.jsx
 import React, { useState } from 'react';
 import { Layout, theme } from 'antd';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
@@ -9,11 +8,12 @@ import Order from './components/Order';
 import Customer from './components/Customer';
 import Promotion from './components/Promotion';
 import Setting from './components/Setting';
+import Login from "./authentication/Login"; // Import the Login component
 
 const { Header, Content, Sider } = Layout;
 
 const App = () => {
-  const [isAuth, setIsAuth] = useState(true); // Set default to true for testing
+  const [isAuth, setIsAuth] = useState(false); // Default to false to simulate login
 
   const {
     token: { colorBgContainer },
@@ -60,13 +60,22 @@ const App = () => {
                   <Route path="/customer" element={<Customer />} />
                   <Route path="/promotion" element={<Promotion />} />
                   <Route path="/setting" element={<Setting />} />
-                  <Route path="*" element={<Navigate to="/dashboard" />} /> {/* Default route */}
+                  <Route path="*" element={<Navigate to="/dashboard" />} /> {/* Default route when authenticated */}
                 </Routes>
               </Content>
             </Layout>
           </>
         ) : (
-          <Navigate to="/login" replace />
+          <Content
+            style={{
+              margin: '0 16px',
+            }}
+          >
+            <Routes>
+              <Route path="/login" element={<Login setIsAuth={setIsAuth} />} />
+              <Route path="*" element={<Navigate to="/login" replace />} /> {/* Redirect all other routes to login */}
+            </Routes>
+          </Content>
         )}
       </Layout>
     </Router>
