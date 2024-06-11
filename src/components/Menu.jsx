@@ -1,32 +1,121 @@
-import { Card } from 'antd';
+import React from 'react';
+import { Card, List, Avatar, Button } from 'antd';
 import '../style/Menu.css';
 
-const menuItems = [
-  { id: 1, name: 'Item 1', description: 'Description for Item 1' },
-  { id: 2, name: 'Item 2', description: 'Description for Item 2' },
-  { id: 3, name: 'Item 3', description: 'Description for Item 3' },
-  { id: 4, name: 'Item 4', description: 'Description for Item 4' },
-  { id: 5, name: 'Item 5', description: 'Description for Item 5' },
-  { id: 6, name: 'Item 6', description: 'Description for Item 6' },
-  { id: 7, name: 'Item 7', description: 'Description for Item 7' },
-  { id: 8, name: 'Item 8', description: 'Description for Item 8' },
-  { id: 9, name: 'Item 9', description: 'Description for Item 9' },
-  { id: 10, name: 'Item 10', description: 'Description for Item 10' },
-  // Add more items as needed
+const fruitMenu = [
+  { name: 'Apple', price: '$2.50', quantity: 50, picture: 'src/assets/apple.png' },
+  { name: 'Banana', price: '$1.20', quantity: 100, picture: 'src/assets/banana.png' },
+  { name: 'Orange', price: '$1.80', quantity: 80, picture: 'src/assets/orange.png' },
+  { name: 'Strawberry', price: '$3.00', quantity: 40, picture: 'src/assets/strawberry.png' },
+  { name: 'Grapes', price: '$2.00', quantity: 70, picture: 'src/assets/grapes.png' },
+  { name: 'Pineapple', price: '$3.50', quantity: 30, picture: 'src/assets/pineapple.webp' },
+  { name: 'Mango', price: '$2.75', quantity: 60, picture: 'src/assets/mango.png' },
+  { name: 'Watermelon', price: '$4.00', quantity: 20, picture: 'src/assets/watermelon.webp' },
+  { name: 'Apple', price: '$2.50', quantity: 50, picture: 'src/assets/apple.png' },
+  { name: 'Banana', price: '$1.20', quantity: 100, picture: 'src/assets/banana.png' },
+  { name: 'Orange', price: '$1.80', quantity: 80, picture: 'src/assets/orange.png' },
+  { name: 'Strawberry', price: '$3.00', quantity: 40, picture: 'src/assets/strawberry.png' },
+  { name: 'Grapes', price: '$2.00', quantity: 70, picture: 'src/assets/grapes.png' },
+  { name: 'Pineapple', price: '$3.50', quantity: 30, picture: 'src/assets/pineapple.webp' },
+  { name: 'Mango', price: '$2.75', quantity: 60, picture: 'src/assets/mango.png' },
+  { name: 'Watermelon', price: '$4.00', quantity: 20, picture: 'src/assets/watermelon.webp' },
+  { name: 'Apple', price: '$2.50', quantity: 50, picture: 'src/assets/apple.png' },
+  { name: 'Banana', price: '$1.20', quantity: 100, picture: 'src/assets/banana.png' },
+  { name: 'Orange', price: '$1.80', quantity: 80, picture: 'src/assets/orange.png' },
+  { name: 'Strawberry', price: '$3.00', quantity: 40, picture: 'src/assets/strawberry.png' },
+  { name: 'Grapes', price: '$2.00', quantity: 70, picture: 'src/assets/grapes.png' },
+  { name: 'Pineapple', price: '$3.50', quantity: 30, picture: 'src/assets/pineapple.webp' },
+  { name: 'Mango', price: '$2.75', quantity: 60, picture: 'src/assets/mango.png' },
+  { name: 'Watermelon', price: '$4.00', quantity: 20, picture: 'src/assets/watermelon.webp' },
+  { name: 'Apple', price: '$2.50', quantity: 50, picture: 'src/assets/apple.png' },
+  { name: 'Banana', price: '$1.20', quantity: 100, picture: 'src/assets/banana.png' },
+  { name: 'Orange', price: '$1.80', quantity: 80, picture: 'src/assets/orange.png' },
+  { name: 'Strawberry', price: '$3.00', quantity: 40, picture: 'src/assets/strawberry.png' },
+  { name: 'Grapes', price: '$2.00', quantity: 70, picture: 'src/assets/grapes.png' },
+  { name: 'Pineapple', price: '$3.50', quantity: 30, picture: 'src/assets/pineapple.webp' },
+];
+const productCategory = [
+  { name: 'Fruite', picture: 'src/assets/fruiteCategory.png' },
+  { name: 'Drink', picture: 'src/assets/apple.png' },
+  { name: 'Food', picture: 'src/assets/apple.png' },
+  { name: 'SkinCare', picture: 'src/assets/apple.png' },
+  { name: 'Meal', picture: 'src/assets/apple.png' },
+  { name: 'kitchen', picture: 'src/assets/apple.png' },
+  { name: 'Medicine', picture: 'src/assets/apple.png' },
+  { name: 'Accessaries', picture: 'src/assets/apple.png' },
+  { name: 'Study', picture: 'src/assets/apple.png' },
+
+
 ];
 
-const MenuComponent = () => {
+const Menu = () => {
   return (
-    <Card title="Menu" className="menu-card">
-      <div className="menu-container">
-        {menuItems.map((item) => (
-          <Card key={item.id} title={item.name} className="menu-item">
-            <p>{item.description}</p>
-          </Card>
-        ))}
+    <div>
+      <div className='menu-manager'>
+      <div className="category">
+        <div className="category-text">
+          <h2 className="text-category1">Category</h2>
+          <span className="text-category2" onClick={() => alert('See more clicked')}>
+            See more ...
+          </span>
+        </div>
       </div>
-    </Card>
+      <div className="menu-manager">
+
+      <div className="menu-container">
+        <Card className="menu-card1">
+          <List
+            grid={{ gutter: 16, column: 9 }}
+            dataSource={productCategory}
+            renderItem={item => (
+              <List.Item>
+                <Card className='productCover'>
+                  <img src={item.picture} alt={item.name} className="category-image" />
+
+                </Card> 
+              </List.Item>
+            )}
+          />
+        </Card>
+      </div>
+    </div>
+      </div>
+
+      <div className="menu-manager">
+      <div className="category">
+        <div className="category-text2">
+          <h2 className="text-category1">Category</h2>
+          <span className="text-category2" onClick={() => alert('See more clicked')}>
+            See more ...
+          </span>
+        </div>
+      </div>
+      <div className="menu-container">
+        <Card title="Fruit Menu" className="menu-card">
+          <List
+            grid={{ gutter: 16, column: 6 }} // Changed from 4 to 6
+            dataSource={fruitMenu}
+            renderItem={item => (
+              <List.Item>
+                <Card className='product-card'
+                  cover={<img src={item.picture} alt={item.name} className="fruit-image" />}
+                  actions={[<Button onClick={() => handleAddToCart(item.name)}>Add</Button>]}
+                >
+                  <Card.Meta
+                    title={item.name}
+                    description={`Price: ${item.price} | Quantity: ${item.quantity}`}
+                  />
+                </Card>
+              </List.Item>
+            )}
+          />
+        </Card>
+      </div>
+    </div>
+
+    </div>
+    
   );
 };
 
-export default MenuComponent;
+export default Menu;

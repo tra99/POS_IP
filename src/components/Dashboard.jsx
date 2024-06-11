@@ -89,7 +89,6 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-container">
-      
       <div className="earnings-container">
         <div className="earning-card">
         <Card>
