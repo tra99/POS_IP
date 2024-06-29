@@ -1,9 +1,9 @@
-.OrderHistory-table-container {
+.Order-table-container {
     padding: 20px;
     width: 80vw;
   }
   
-  .OrderHistory-table-container .header {
+  .Order-table-container .header {
     width: 80vw;
     display: grid;
     grid-template-columns:  repeat(8,1fr);
@@ -54,16 +54,16 @@
     border-radius: 5px;
     margin-top: 10px;
   }
-  .OrderHistory-table-container img {
+  .Order-table-container img {
     margin-right: 8px;
   }
   
-  .OrderHistory-table-container .profile-cell {
+  .Order-table-container .profile-cell {
     display: flex;
     align-items: center;
   }
   
-  .OrderHistory-table-container .pagination button {
+  .Order-table-container .pagination button {
     color: black;
     background: none;
     border: none;
@@ -71,7 +71,7 @@
     font-size: 16px;
   }
   
-  .OrderHistory-table-container .pagination button:disabled {
+  .Order-table-container .pagination button:disabled {
     color: gray;
     cursor: not-allowed;
   }
@@ -80,7 +80,7 @@
     color: gray !important;
     cursor: not-allowed;
   }
-  .OrderHistory-table-container .add-OrderHistory-button {
+  .Order-table-container .add-Order-button {
     background-color:  #2f80ed;
     color: white;
     border: none;
@@ -90,7 +90,7 @@
     font-size: 16px;
   }
   
-  .OrderHistory-table-container .add-OrderHistory-button:hover {
+  .Order-table-container .add-Order-button:hover {
     background-color: darkblue;
   }
   

@@ -4,11 +4,11 @@ import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'r
 import Sidebar from './components/Sidebar';
 import Dashboard from './components/Dashboard';
 import MenuComponent from './components/Menu';
-import Order from './components/Order';
 import Customer from './components/Customer';
 import Employee from './components/Employee';
 import Product from './components/Product';
-import OrderHistory from './components/OrderHistory';
+import Order from './components/Order';
+import Category from './components/Category';
 import Login from './authentication/Login';
 import { BellOutlined } from '@ant-design/icons';
 import './style/Dashboard.css';
@@ -34,6 +34,7 @@ const App = () => {
     '/customer': 'Customer',
     '/employee': 'Employee',
     '/orderHistory': 'OrderHistory',
+    '/category': 'Category',
   };
 
   // Get the current route's title
@@ -85,10 +86,10 @@ const App = () => {
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/menu" element={<MenuComponent />} />
                 <Route path="/product" element={<Product />} />
-                <Route path="/order" element={<Order />} />
                 <Route path="/customer" element={<Customer />} />
                 <Route path="/employee" element={<Employee />} />
-                <Route path="/orderHistory" element={<OrderHistory />} />
+                <Route path="/order" element={<Order />} />
+                <Route path="/category" element={<Category />} />
                 <Route path="*" element={<Navigate to="/menu" />} /> {/* Default route when authenticated */}
               </Routes>
             </Content>

@@ -3,10 +3,10 @@ import {
   PieChartOutlined,
   TeamOutlined,
   MenuOutlined,
-  BarChartOutlined,
   ProductOutlined,
   UserOutlined,
   ShoppingCartOutlined,
+  ShopOutlined,
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 
@@ -22,12 +22,11 @@ const items = [
   getItem('Dashboard', '1', <PieChartOutlined />),
   
   getItem('Menu', '2', <MenuOutlined />),
-  getItem('Product', '3', <ProductOutlined />),
-  getItem('Order', '4', <BarChartOutlined />),
-  getItem('Customer', '5', <TeamOutlined />),
-  getItem('Employee', '6', <UserOutlined />),
-  getItem('OrderHistory', '7', <ShoppingCartOutlined />),
-  
+  getItem('Category', '3', <ShopOutlined />),
+  getItem('Product', '4', <ProductOutlined />),
+  getItem('Order', '5', <ShoppingCartOutlined />),
+  getItem('Customer', '6', <TeamOutlined />),
+  getItem('Employee', '7', <UserOutlined />),
 ];
 
 const Sidebar = () => {
@@ -42,19 +41,19 @@ const Sidebar = () => {
         navigate('/menu');
         break;
       case '3':
-        navigate('/product');
+        navigate('/category');
         break;
       case '4':
-        navigate('/order');
+        navigate('/product');
         break;
       case '5':
-        navigate('/customer');
+        navigate('/order');
         break;
       case '6':
-        navigate('/employee');
+        navigate('/customer');
         break
       case '7':
-        navigate('/orderHistory');
+        navigate('/employee');
         break;
       default:
         break;
