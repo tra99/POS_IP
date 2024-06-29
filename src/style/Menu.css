@@ -76,17 +76,19 @@
 .menu-card {
   margin: 0 auto;
   width: 1250px;
-  background: #B0EAF6;
+  /* background: #B0EAF6; */
 }
 .menu-card1 {
   margin: 0 auto;
   width: 1250px;
-  background: #B0EAF6;
+  /* background: #B0EAF6; */
   height: 122px;
   display: flex;
   align-items: center;
   justify-content: space-around;
   margin-top: 15px;
+  box-shadow: 10px 10px 10px #e3d9d9;
+
 
 }
 .product-card {
@@ -125,7 +127,7 @@
   border-radius: 20px;
   height: 100px;
   width: 100px;
-  box-shadow: 10px 10px 10px #9E9E9E;
+  box-shadow: 5px 5px 5px 2px #9E9E9E;
   display: flex;
   justify-content: center;
   align-items: center;

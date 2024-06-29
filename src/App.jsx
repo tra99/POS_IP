@@ -161,7 +161,7 @@ const App = () => {
                   <Route path="/customer" element={<Customer />} />
                   <Route path="/promotion" element={<Promotion />} />
                   <Route path="/setting" element={<Setting />} />
-                  <Route path="*" element={<Navigate to="/menu" />} /> {/* Default route */}
+                  <Route path="*" element={<Navigate to="/login" />} /> {/* Default route */}
                 </Routes>
               </Content>
             </Layout>

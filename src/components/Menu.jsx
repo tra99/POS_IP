@@ -36,14 +36,14 @@ const fruitMenu = [
 ];
 const productCategory = [
   { name: 'Fruite', picture: 'src/assets/fruiteCategory.png' },
-  { name: 'Drink', picture: 'src/assets/apple.png' },
-  { name: 'Food', picture: 'src/assets/apple.png' },
-  { name: 'SkinCare', picture: 'src/assets/apple.png' },
-  { name: 'Meal', picture: 'src/assets/apple.png' },
-  { name: 'kitchen', picture: 'src/assets/apple.png' },
-  { name: 'Medicine', picture: 'src/assets/apple.png' },
-  { name: 'Accessaries', picture: 'src/assets/apple.png' },
-  { name: 'Study', picture: 'src/assets/apple.png' },
+  { name: 'Drink', picture: 'src/assets/fruiteCategory.png' },
+  { name: 'Food', picture: 'src/assets/fruiteCategory.png' },
+  { name: 'SkinCare', picture: 'src/assets/fruiteCategory.png' },
+  { name: 'Meal', picture: 'src/assets/fruiteCategory.png' },
+  { name: 'kitchen', picture: 'src/assets/fruiteCategory.png' },
+  { name: 'Medicine', picture: 'src/assets/fruiteCategory.png' },
+  { name: 'Accessaries', picture: 'src/assets/fruiteCategory.png' },
+  { name: 'Study', picture: 'src/assets/fruiteCategory.png' },
 
 
 ];
@@ -69,7 +69,7 @@ const Menu = () => {
             dataSource={productCategory}
             renderItem={item => (
               <List.Item>
-                <Card className='productCover'>
+                <Card className='productCover' onClick={() => alert('See category')}>
                   <img src={item.picture} alt={item.name} className="category-image" />
 
                 </Card> 
