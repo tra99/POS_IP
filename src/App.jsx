@@ -61,18 +61,18 @@ const App = () => {
             <div className="header1">
               <h1 className="text1">{currentTitle}</h1> {/* Dynamic title */}
               <div className='text2'>
-                {location.pathname !== '/product' && (
-                  <Space direction="vertical">
-                    <Search
-                      placeholder="input search text"
-                      onSearch={onSearch}
-                      style={{
-                        width: 400,
-                        height: 50
-                      }}
-                    />
-                  </Space>
-                )}
+              {location.pathname !== '/product' && location.pathname !== '/category' && (
+                <Space direction="vertical">
+                  <Search
+                    placeholder="input search text"
+                    onSearch={onSearch}
+                    style={{
+                      width: 400,
+                      height: 50
+                    }}
+                  />
+                </Space>
+              )}
                 <div className="image-container">
                   <BellOutlined style={{ fontSize: "20px" }} />
                 </div>
