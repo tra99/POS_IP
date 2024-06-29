@@ -49,7 +49,8 @@ const App = () => {
                     placeholder="input search text"
                     onSearch={onSearch}
                     style={{
-                      width: 200,
+                      width: 400,
+                      height:50
                     }}
                   />
                   <div className="image-container">
