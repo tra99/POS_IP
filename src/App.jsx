@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Layout, theme } from 'antd';
+import { Layout, theme ,Input} from 'antd';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import Dashboard from './components/Dashboard';
@@ -8,13 +8,16 @@ import Order from './components/Order';
 import Customer from './components/Customer';
 import Promotion from './components/Promotion';
 import Setting from './components/Setting';
-import Login from './authentication/Login';  // Corrected import path for Login component
+import Login from './authentication/Login';
+import { BellOutlined} from '@ant-design/icons';
+import './style/Dashboard.css';
 
 const { Header, Content, Sider } = Layout;
 
 const App = () => {
   const [isAuth, setIsAuth] = useState(false);
-
+  const { Search } = Input;
+  const onSearch = (value, _e, info) => console.log(info?.source, value);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -38,7 +41,25 @@ const App = () => {
               <Sidebar />
             </Sider>
             <Layout>
-              <Header style={{ padding: 20, background: colorBgContainer }} />
+              {/* <Header style={{ padding: 20, background: colorBgContainer }} /> */}
+              <div className="header1" >
+                <h1 className="text1" >Dashboard</h1>
+                <div className='text2'>
+                  <Search
+                    placeholder="input search text"
+                    onSearch={onSearch}
+                    style={{
+                      width: 200,
+                    }}
+                  />
+                  <div className="image-container">
+                    <BellOutlined style={{fontSize:"20px"}}/>
+                  </div>
+                  <div className="image-container">
+                    <img src="src/assets/cat.png" alt="Logo" className="login-logo" />
+                  </div>
+                </div>
+              </div>
               <Content style={{ margin: '0 16px' }}>
                 <Routes>
                   <Route path="/dashboard" element={<Dashboard />} />
