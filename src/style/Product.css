@@ -1,0 +1,106 @@
+.Product-table-container {
+    padding: 20px;
+    width: 80vw;
+    background-color: rgba(176, 234, 246, 1);
+    border-radius: 20px;
+  }
+  
+  .Product-table-container .title1 {
+    width: 80vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .Product-table-container .search1 {
+    /* width: 80vw; */
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    margin-right: 40px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #2f80ed;
+    height: 80px;
+    color: white;
+  }
+  
+  td {
+    vertical-align: middle;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: end;
+    gap: 20px;
+    align-items: center;
+    padding: 10px;
+    background-color: #2f80ed;
+    color: white;
+    border-radius: 0 0 10px 10px;
+  }
+  
+  button {
+    background-color: #2f80ed;
+    color: red;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  .Product-table-container img {
+    margin-right: 8px;
+  }
+  
+  .Product-table-container .profile-cell {
+    display: flex;
+    align-items: center;
+  }
+  
+  .Product-table-container .pagination button {
+    color: black;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .Product-table-container .pagination button:disabled {
+    color: gray;
+    cursor: not-allowed;
+  }
+  
+  .disabled-button {
+    color: gray !important;
+    cursor: not-allowed;
+  }
+  .Product-table-container .add-Product-button {
+    background-color:  #2f80ed;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .Product-table-container .add-Product-button:hover {
+    background-color: darkblue;
+  }
+  
+  
+  

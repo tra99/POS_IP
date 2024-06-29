@@ -4,8 +4,8 @@ import {
   TeamOutlined,
   MenuOutlined,
   BarChartOutlined,
-  DownSquareOutlined,
-  SettingOutlined,
+  ProductOutlined,
+  UserOutlined,
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 
@@ -19,11 +19,13 @@ const getItem = (label, key, icon) => {
 
 const items = [
   getItem('Dashboard', '1', <PieChartOutlined />),
+  
   getItem('Menu', '2', <MenuOutlined />),
-  getItem('Order', '3', <BarChartOutlined />),
-  getItem('Customer', '4', <TeamOutlined />),
-  getItem('Employee', '5', <DownSquareOutlined />),
-  getItem('Setting', '6', <SettingOutlined />),
+  getItem('Product', '3', <ProductOutlined />),
+  getItem('Order', '4', <BarChartOutlined />),
+  getItem('Customer', '5', <TeamOutlined />),
+  getItem('Employee', '6', <UserOutlined />),
+  
 ];
 
 const Sidebar = () => {
@@ -38,16 +40,16 @@ const Sidebar = () => {
         navigate('/menu');
         break;
       case '3':
-        navigate('/order');
+        navigate('/product');
         break;
       case '4':
-        navigate('/customer');
+        navigate('/order');
         break;
       case '5':
-        navigate('/employee');
+        navigate('/customer');
         break;
       case '6':
-        navigate('/setting');
+        navigate('/employee');
         break;
       default:
         break;
