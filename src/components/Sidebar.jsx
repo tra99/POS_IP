@@ -6,6 +6,7 @@ import {
   BarChartOutlined,
   ProductOutlined,
   UserOutlined,
+  ShoppingCartOutlined,
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 
@@ -25,6 +26,7 @@ const items = [
   getItem('Order', '4', <BarChartOutlined />),
   getItem('Customer', '5', <TeamOutlined />),
   getItem('Employee', '6', <UserOutlined />),
+  getItem('OrderHistory', '7', <ShoppingCartOutlined />),
   
 ];
 
@@ -50,6 +52,9 @@ const Sidebar = () => {
         break;
       case '6':
         navigate('/employee');
+        break
+      case '7':
+        navigate('/orderHistory');
         break;
       default:
         break;

@@ -8,6 +8,7 @@ import Order from './components/Order';
 import Customer from './components/Customer';
 import Employee from './components/Employee';
 import Product from './components/Product';
+import OrderHistory from './components/OrderHistory';
 import Login from './authentication/Login';
 import { BellOutlined } from '@ant-design/icons';
 import './style/Dashboard.css';
@@ -32,6 +33,7 @@ const App = () => {
     '/order': 'Order',
     '/customer': 'Customer',
     '/employee': 'Employee',
+    '/orderHistory': 'OrderHistory',
   };
 
   // Get the current route's title
@@ -86,6 +88,7 @@ const App = () => {
                 <Route path="/order" element={<Order />} />
                 <Route path="/customer" element={<Customer />} />
                 <Route path="/employee" element={<Employee />} />
+                <Route path="/orderHistory" element={<OrderHistory />} />
                 <Route path="*" element={<Navigate to="/menu" />} /> {/* Default route when authenticated */}
               </Routes>
             </Content>
