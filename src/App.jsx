@@ -6,7 +6,7 @@ import Dashboard from './components/Dashboard';
 import MenuComponent from './components/Menu';
 import Order from './components/Order';
 import Customer from './components/Customer';
-import Promotion from './components/Promotion';
+import Employee from './components/Employee';
 import Setting from './components/Setting';
 import Login from './authentication/Login';
 import { BellOutlined} from '@ant-design/icons';
@@ -67,7 +67,7 @@ const App = () => {
                   <Route path="/menu" element={<MenuComponent />} />
                   <Route path="/order" element={<Order />} />
                   <Route path="/customer" element={<Customer />} />
-                  <Route path="/promotion" element={<Promotion />} />
+                  <Route path="/employee" element={<Employee />} />
                   <Route path="/setting" element={<Setting />} />
                   <Route path="*" element={<Navigate to="/menu" />} /> {/* Default route when authenticated */}
                 </Routes>

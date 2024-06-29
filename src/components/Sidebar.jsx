@@ -22,7 +22,7 @@ const items = [
   getItem('Menu', '2', <MenuOutlined />),
   getItem('Order', '3', <BarChartOutlined />),
   getItem('Customer', '4', <TeamOutlined />),
-  getItem('Promotion', '5', <DownSquareOutlined />),
+  getItem('Employee', '5', <DownSquareOutlined />),
   getItem('Setting', '6', <SettingOutlined />),
 ];
 
@@ -44,7 +44,7 @@ const Sidebar = () => {
         navigate('/customer');
         break;
       case '5':
-        navigate('/promotion');
+        navigate('/employee');
         break;
       case '6':
         navigate('/setting');
