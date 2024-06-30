@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, List, Avatar, Button, Drawer, Radio } from 'antd';
+import { Card, List, Avatar, Button, Drawer, Radio, Input, Tabs, Form } from 'antd';
 import '../style/Menu.css';
 
 const fruitMenu = [
@@ -11,17 +11,25 @@ const fruitMenu = [
   { name: 'Pineapple', price: 3.50, quantity: 30, picture: 'src/assets/pineapple.webp' },
   { name: 'Mango', price: 2.75, quantity: 60, picture: 'src/assets/mango.png' },
   { name: 'Watermelon', price: 4.00, quantity: 20, picture: 'src/assets/watermelon.webp' },
+  { name: 'Apple', price: 2.50, quantity: 50, picture: 'src/assets/apple.png' },
+  { name: 'Banana', price: 1.20, quantity: 100, picture: 'src/assets/banana.png' },
+  { name: 'Orange', price: 1.80, quantity: 80, picture: 'src/assets/orange.png' },
+  { name: 'Strawberry', price: 3.00, quantity: 40, picture: 'src/assets/strawberry.png' },
+  { name: 'Grapes', price: 2.00, quantity: 70, picture: 'src/assets/grapes.png' },
+  { name: 'Pineapple', price: 3.50, quantity: 30, picture: 'src/assets/pineapple.webp' },
+  { name: 'Mango', price: 2.75, quantity: 60, picture: 'src/assets/mango.png' },
+  { name: 'Watermelon', price: 4.00, quantity: 20, picture: 'src/assets/watermelon.webp' },
 ];
 
 const productCategory = [
-  { name: 'Fruite', picture: 'src/assets/fruiteCategory.png' },
+  { name: 'Fruit', picture: 'src/assets/fruiteCategory.png' },
   { name: 'Drink', picture: 'src/assets/fruiteCategory.png' },
   { name: 'Food', picture: 'src/assets/fruiteCategory.png' },
   { name: 'SkinCare', picture: 'src/assets/fruiteCategory.png' },
   { name: 'Meal', picture: 'src/assets/fruiteCategory.png' },
-  { name: 'kitchen', picture: 'src/assets/fruiteCategory.png' },
+  { name: 'Kitchen', picture: 'src/assets/fruiteCategory.png' },
   { name: 'Medicine', picture: 'src/assets/fruiteCategory.png' },
-  { name: 'Accessaries', picture: 'src/assets/fruiteCategory.png' },
+  { name: 'Accessories', picture: 'src/assets/fruiteCategory.png' },
   { name: 'Study', picture: 'src/assets/fruiteCategory.png' },
 ];
 
@@ -30,7 +38,9 @@ const Menu = () => {
   const [quantities, setQuantities] = useState({});
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState('cash');
-  
+  const [givenAmount, setGivenAmount] = useState(0);
+  const [customer, setCustomer] = useState(null);
+
   const taxRate = 0.05;
   const discount = 0; // Add logic for discount if needed
   
@@ -80,6 +90,20 @@ const Menu = () => {
     setPaymentMethod(e.target.value);
   };
 
+  const handleGivenAmountChange = (e) => {
+    setGivenAmount(parseFloat(e.target.value) || 0);
+  };
+
+  const handleLogin = (values) => {
+    setCustomer({ phoneNumber: values.phoneNumber });
+    alert(`Customer with phone number ${values.phoneNumber} logged in.`);
+  };
+
+  const handleRegister = (values) => {
+    setCustomer({ name: values.name, phoneNumber: values.phoneNumber });
+    alert(`Customer ${values.name} registered with phone number ${values.phoneNumber}.`);
+  };
+
   const calculateTotal = () => {
     const subtotal = cart.reduce((total, item) => {
       return total + item.price * quantities[item.name];
@@ -126,13 +150,21 @@ const Menu = () => {
         <div className="category">
           <div className="category-text2">
             <h2 className="text-category1">Category</h2>
+            {/* <div>
+              <Button type="primary" onClick={showDrawer}>
+                View Cart ({cart.length})
+              </Button>
+            </div> */}
+          
             <span className="text-category2" onClick={() => alert('See more clicked')}>
               See more ...
             </span>
           </div>
         </div>
         <div className="menu-container">
-          <Card title="Fruit Menu" className="menu-card">
+    
+          <Card title="Fruit Menu" className="menu-card" >
+          
             <List
               grid={{ gutter: 16, column: 6 }}
               dataSource={fruitMenu}
@@ -193,12 +225,59 @@ const Menu = () => {
         </div>
         <Radio.Group onChange={handlePaymentMethodChange} value={paymentMethod}>
           <Radio value="cash">Cash</Radio>
-          <Radio value="card">Card</Radio>
-          <Radio value="wallet">Wallet</Radio>
         </Radio.Group>
-        <Button type="primary" onClick={handleCheckout} style={{ marginTop: '16px' }}>
+        <Input 
+          type="number" 
+          placeholder="Enter amount given by client" 
+          onChange={handleGivenAmountChange} 
+          style={{ marginTop: '16px' }}
+        />
+        <Button 
+          type="primary" 
+          onClick={handleCheckout} 
+          style={{ marginTop: '16px' }} 
+          disabled={!customer || givenAmount < total}
+        >
           Proceed to Payment
         </Button>
+        <Tabs defaultActiveKey="1" style={{ marginTop: '16px' }}>
+          <Tabs.TabPane tab="Login" key="1">
+            <Form onFinish={handleLogin}>
+              <Form.Item
+                name="phoneNumber"
+                rules={[{ required: true, message: 'Please input the phone number!' }]}
+              >
+                <Input placeholder="Phone Number" />
+              </Form.Item>
+              <Form.Item>
+                <Button type="primary" htmlType="submit">
+                  Login
+                </Button>
+              </Form.Item>
+            </Form>
+          </Tabs.TabPane>
+          <Tabs.TabPane tab="Register" key="2">
+            <Form onFinish={handleRegister}>
+              <Form.Item
+                name="name"
+                rules={[{ required: true, message: 'Please input the name!' }]}
+              >
+                <Input placeholder="Name" />
+              </Form.Item>
+              <Form.Item
+                name="phoneNumber"
+                rules={[{ required: true, message: 'Please input the phone number!' }]}
+              >
+                <Input placeholder="Phone Number" />
+              </Form.Item>
+              <Form.Item>
+                <Button type="primary" htmlType="submit">
+                  Register
+                </Button>
+              </Form.Item>
+            </Form>
+          </Tabs.TabPane>
+        </Tabs>
       </Drawer>
     </div>
   );
