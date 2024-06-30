@@ -7,8 +7,8 @@ import {
   DownSquareOutlined,
   SettingOutlined,
 } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
 
+import { useNavigate } from 'react-router-dom';
 const getItem = (label, key, icon) => {
   return {
     key,
@@ -24,7 +24,9 @@ const items = [
   getItem('Customer', '4', <TeamOutlined />),
   getItem('Promotion', '5', <DownSquareOutlined />),
   getItem('Setting', '6', <SettingOutlined />),
+  getItem('Setting 2', '7', <SettingOutlined />),
 ];
+
 
 const Sidebar = () => {
   const navigate = useNavigate();
