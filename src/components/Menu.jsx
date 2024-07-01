@@ -25,12 +25,12 @@ const productCategory = [
   { name: 'Fruit', picture: 'src/assets/fruiteCategory.png' },
   { name: 'Drink', picture: 'src/assets/fruiteCategory.png' },
   { name: 'Food', picture: 'src/assets/fruiteCategory.png' },
-  { name: 'SkinCare', picture: 'src/assets/fruiteCategory.png' },
-  { name: 'Meal', picture: 'src/assets/fruiteCategory.png' },
-  { name: 'Kitchen', picture: 'src/assets/fruiteCategory.png' },
-  { name: 'Medicine', picture: 'src/assets/fruiteCategory.png' },
-  { name: 'Accessories', picture: 'src/assets/fruiteCategory.png' },
-  { name: 'Study', picture: 'src/assets/fruiteCategory.png' },
+  // { name: 'SkinCare', picture: 'src/assets/fruiteCategory.png' },
+  // { name: 'Meal', picture: 'src/assets/fruiteCategory.png' },
+  // { name: 'Kitchen', picture: 'src/assets/fruiteCategory.png' },
+  // { name: 'Medicine', picture: 'src/assets/fruiteCategory.png' },
+  // { name: 'Accessories', picture: 'src/assets/fruiteCategory.png' },
+  // { name: 'Study', picture: 'src/assets/fruiteCategory.png' },
 ];
 
 const Menu = () => {
@@ -115,13 +115,12 @@ const Menu = () => {
   };
 
   const { subtotal, tax, total } = calculateTotal();
-
   return (
     <div>
       <div className='menu-manager'>
         <div className="category">
           <div className="category-text">
-            <h2 className="text-category1">Category</h2>
+            <h2 className="text-category1">Categories Lists</h2>
             <span className="text-category2" onClick={() => alert('See more clicked')}>
               See more ...
             </span>
@@ -130,17 +129,16 @@ const Menu = () => {
         <div className="menu-manager">
           <div className="menu-container">
             <Card className="menu-card1">
-              <List
-                grid={{ gutter: 16, column: 9 }}
-                dataSource={productCategory}
-                renderItem={item => (
-                  <List.Item>
-                    <Card className='productCover' onClick={() => alert('See category')}>
+              {/* <div className='category-list'> */}
+              <div className={`category-list ${productCategory.length <= 3 ? 'few-categories' : 'normal-categories'}`}>
+                {productCategory.map((item, index) => (
+                  <div key={index} className="category-item">
+                    <Card className='productCover' onClick={() => alert('See category...')}>
                       <img src={item.picture} alt={item.name} className="category-image" />
-                    </Card> 
-                  </List.Item>
-                )}
-              />
+                    </Card>
+                  </div>
+                ))}
+              </div>
             </Card>
           </div>
         </div>
@@ -150,21 +148,13 @@ const Menu = () => {
         <div className="category">
           <div className="category-text2">
             <h2 className="text-category1">Category</h2>
-            {/* <div>
-              <Button type="primary" onClick={showDrawer}>
-                View Cart ({cart.length})
-              </Button>
-            </div> */}
-          
             <span className="text-category2" onClick={() => alert('See more clicked')}>
               See more ...
             </span>
           </div>
         </div>
         <div className="menu-container">
-    
-          <Card title="Fruit Menu" className="menu-card" >
-          
+          <Card title="Fruit Menu" className="menu-card">
             <List
               grid={{ gutter: 16, column: 6 }}
               dataSource={fruitMenu}
@@ -282,5 +272,7 @@ const Menu = () => {
     </div>
   );
 };
+
+
 
 export default Menu;
