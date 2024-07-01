@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Layout, theme, Input, Space } from 'antd';
+import { Layout, theme, Input, Space, Modal } from 'antd';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import Dashboard from './components/Dashboard';
@@ -17,6 +17,7 @@ const { Content, Sider } = Layout;
 
 const App = () => {
   const [isAuth, setIsAuth] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false); // State to manage modal visibility
   const { Search } = Input;
   const onSearch = (value, _e, info) => console.log(info?.source, value);
   const {
@@ -40,6 +41,19 @@ const App = () => {
   // Get the current route's title
   const currentTitle = routeTitles[location.pathname] || 'Dashboard';
 
+  // Event handler to toggle modal visibility
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   return (
     <Layout style={{ minHeight: '100vh' }}>
       {isAuth ? (
@@ -61,23 +75,28 @@ const App = () => {
             <div className="header1">
               <h1 className="text1">{currentTitle}</h1> {/* Dynamic title */}
               <div className='text2'>
-              {location.pathname !== '/product' && location.pathname !== '/category' && (
-                <Space direction="vertical">
-                  <Search
-                    placeholder="input search text"
-                    onSearch={onSearch}
-                    style={{
-                      width: 400,
-                      height: 50
-                    }}
-                  />
-                </Space>
-              )}
+                {location.pathname !== '/product' && location.pathname !== '/category' && (
+                  <Space direction="vertical">
+                    <Search
+                      placeholder="input search text"
+                      onSearch={onSearch}
+                      style={{
+                        width: 400,
+                        height: 50
+                      }}
+                    />
+                  </Space>
+                )}
                 <div className="image-container">
                   <BellOutlined style={{ fontSize: "20px" }} />
                 </div>
                 <div className="image-container">
-                  <img src="src/assets/cat.png" alt="Logo" className="login-logo" />
+                  <img 
+                    src="src/assets/cat.png" 
+                    alt="Logo" 
+                    className="login-logo" 
+                    onClick={showModal} // Add onClick event to show modal
+                  />
                 </div>
               </div>
             </div>
@@ -94,6 +113,17 @@ const App = () => {
               </Routes>
             </Content>
           </Layout>
+          {/* Modal for user information */}
+          <Modal 
+            title="User Information" 
+            visible={isModalVisible} 
+            onOk={handleOk} 
+            onCancel={handleCancel}
+          >
+            <p>Username: Hok Sochetra</p>
+            <p>Phone Number: 061 563 848</p>
+            <p>Email: chetra@gmail.com</p>
+          </Modal>
         </>
       ) : (
         <Content style={{ margin: '0 16px' }}>
