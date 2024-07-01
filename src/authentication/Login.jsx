@@ -1,48 +1,24 @@
-// src/components/Login.js
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Form, Input, Button, Row, Col, message } from 'antd';
-import axios from 'axios';
-import '../style/Login.css';
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { Form, Input, Button, Row, Col, message } from "antd";
+import { AuthContext } from "../context/AuthContext";
+import "../style/Login.css";
 
-const Login = ({ setAuth }) => {
+const Login = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   const onFinish = async (values) => {
     setLoading(true);
-    try {
-      const response = await axios.post('http://localhost:3000/api/auth/login', {
-        phone: values.username,
-        password: values.password,
-      });
-  
-      if (response.status === 200 || response.status === 201) {
-        const { accessToken } = response.data;
-  
-        // Log the access token to the console
-        console.log('Access Token:', accessToken);
-  
-        // Store the token in local storage
-        localStorage.setItem('accessToken', accessToken);
-        
-        // Update the auth state
-        setAuth(true);
-  
-        // Navigate to the dashboard
-        navigate('/dashboard');
-      } else {
-        const errorMsg = response.data.message || 'Unknown error';
-        message.error('Login failed: ' + errorMsg);
-        setLoading(false);
-      }
-    } catch (error) {
-      const errorMsg = error.response?.data?.message || error.message || 'Unknown error';
-      message.error('Login failed: ' + errorMsg);
-      setLoading(false);
+    const success = await login(values.username, values.password);
+    setLoading(false);
+    if (success) {
+      navigate("/dashboard");
+    } else {
+      message.error("Login failed. Please check your credentials.");
     }
   };
-  
 
   return (
     <div className="login-container">
@@ -60,25 +36,37 @@ const Login = ({ setAuth }) => {
               <Form
                 name="login"
                 onFinish={onFinish}
-                style={{ maxWidth: '100%', height: '80%', margin: '0 auto' }}
+                style={{ maxWidth: "100%", height: "80%", margin: "0 auto" }}
               >
                 <h1 className="login">Login</h1>
                 <Form.Item
                   className="name"
                   name="username"
-                  rules={[{ required: true, message: 'Please input your username!' }]}
+                  rules={[
+                    { required: true, message: "Please input your username!" },
+                  ]}
                 >
                   <Input placeholder="Username" aria-label="Username" />
                 </Form.Item>
                 <Form.Item
                   className="name"
                   name="password"
-                  rules={[{ required: true, message: 'Please input your password!' }]}
+                  rules={[
+                    { required: true, message: "Please input your password!" },
+                  ]}
                 >
-                  <Input.Password placeholder="Password" aria-label="Password" />
+                  <Input.Password
+                    placeholder="Password"
+                    aria-label="Password"
+                  />
                 </Form.Item>
                 <Form.Item className="name">
-                  <Button className="loginButton" type="primary" htmlType="submit" loading={loading}>
+                  <Button
+                    className="loginButton"
+                    type="primary"
+                    htmlType="submit"
+                    loading={loading}
+                  >
                     Login
                   </Button>
                 </Form.Item>

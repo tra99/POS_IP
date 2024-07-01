@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { Dropdown, Menu, Modal, Input, Form, message } from "antd";
+import { Dropdown, Menu, Modal, Input, Form, Select, message } from "antd";
 import { EllipsisOutlined } from "@ant-design/icons";
-import "../style/Customer.css";
+import "../style/Employee.css";
 import axios from "axios";
 
 const initialData = [
@@ -10,9 +10,7 @@ const initialData = [
     name: "Din Pich",
     email: "monopich1823@gmail.com",
     phone: "086318261",
-    created: "2024-02-24 12:00:00",
-    edited: "2024-02-24 12:00:00",
-    status: true,
+    role: "admin",
     profileImage: "https://via.placeholder.com/40",
   },
   {
@@ -20,9 +18,7 @@ const initialData = [
     name: "Ang Ousa",
     email: "ousaang@gmail.com",
     phone: "098787839",
-    created: "2024-02-24 12:00:00",
-    edited: "2024-02-24 12:00:00",
-    status: true,
+    role: "admin",
     profileImage: "https://via.placeholder.com/40",
   },
   {
@@ -30,9 +26,7 @@ const initialData = [
     name: "Hok Sochetra",
     email: "sochetra@gmail.com",
     phone: "0975063390",
-    created: "2024-02-24 12:00:00",
-    edited: "2024-02-24 12:00:00",
-    status: true,
+    role: "admin",
     profileImage: "https://via.placeholder.com/40",
   },
   {
@@ -40,9 +34,7 @@ const initialData = [
     name: "Chab Sreylen",
     email: "chabsreylen@gmail.com",
     phone: "0967810046",
-    created: "2024-02-24 12:00:00",
-    edited: "2024-02-24 12:00:00",
-    status: true,
+    role: "admin",
     profileImage: "https://via.placeholder.com/40",
   },
   {
@@ -50,9 +42,7 @@ const initialData = [
     name: "Sophorn Sovortey",
     email: "sovortey@gmail.com",
     phone: "087609971",
-    created: "2024-02-24 12:00:00",
-    edited: "2024-02-24 12:00:00",
-    status: true,
+    role: "admin",
     profileImage: "https://via.placeholder.com/40",
   },
   {
@@ -60,9 +50,7 @@ const initialData = [
     name: "Pom Mouylang",
     email: "muylang@gmail.com",
     phone: "069310609",
-    created: "2024-02-24 12:00:00",
-    edited: "2024-02-24 12:00:00",
-    status: true,
+    role: "admin",
     profileImage: "https://via.placeholder.com/40",
   },
   {
@@ -70,9 +58,7 @@ const initialData = [
     name: "Pom Mouylang",
     email: "muylang@gmail.com",
     phone: "069310609",
-    created: "2024-02-24 12:00:00",
-    edited: "2024-02-24 12:00:00",
-    status: true,
+    role: "admin",
     profileImage: "https://via.placeholder.com/40",
   },
   {
@@ -80,9 +66,7 @@ const initialData = [
     name: "Pom Mouylang",
     email: "muylang@gmail.com",
     phone: "069310609",
-    created: "2024-02-24 12:00:00",
-    edited: "2024-02-24 12:00:00",
-    status: true,
+    role: "admin",
     profileImage: "https://via.placeholder.com/40",
   },
   {
@@ -90,9 +74,7 @@ const initialData = [
     name: "Pom Mouylang",
     email: "muylang@gmail.com",
     phone: "069310609",
-    created: "2024-02-24 12:00:00",
-    edited: "2024-02-24 12:00:00",
-    status: true,
+    role: "admin",
     profileImage: "https://via.placeholder.com/40",
   },
   {
@@ -100,9 +82,7 @@ const initialData = [
     name: "Pom Mouylang",
     email: "muylang@gmail.com",
     phone: "069310609",
-    created: "2024-02-24 12:00:00",
-    edited: "2024-02-24 12:00:00",
-    status: true,
+    role: "admin",
     profileImage: "https://via.placeholder.com/40",
   },
   {
@@ -110,43 +90,40 @@ const initialData = [
     name: "Pom Mouylang",
     email: "muylang@gmail.com",
     phone: "069310609",
-    created: "2024-02-24 12:00:00",
-    edited: "2024-02-24 12:00:00",
-    status: true,
+    role: "admin",
     profileImage: "https://via.placeholder.com/40",
   },
 ];
 
+const roles = [
+  { id: 1, name: "admin" },
+  { id: 2, name: "staff" },
+];
+
 const pageSize = 10;
 
-const Customer = () => {
+const Employee = () => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalType, setModalType] = useState("");
-  const [currentCustomer, setCurrentCustomer] = useState(null);
+  const [currentEmployee, setCurrentEmployee] = useState(null);
   const [form] = Form.useForm();
-
-  // const token =
-  //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImVtcGxveWVlMSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcxOTY2MjQ4OCwiZXhwIjoxNzE5NzQ4ODg4fQ.f91ZEkWJZsjPlRu8rcezKkVb-bRKvduxCFRl5HjF_4s";
-  // const headers = {
-  //   Authorization: `Bearer ${token}`,
-  // };
 
   useEffect(() => {
     axios
-      .get(`/api/customer`)
+      .get(`/api/employee`)
       .then(({ data }) => {
         console.log(data);
-        const { data: customers } = data;
-        setData(customers);
+        const { data: employees } = data;
+        setData(employees);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
-  const addNewCustomer = () => {
+  const addNewEmployee = () => {
     setModalType("Add");
     setIsModalVisible(true);
   };
@@ -163,14 +140,14 @@ const Customer = () => {
     }
   };
 
-  const showModal = (type, customer) => {
+  const showModal = (type, Employee) => {
     setModalType(type);
-    setCurrentCustomer(customer);
+    setCurrentEmployee(Employee);
     if (type === "Update" || type === "Delete") {
       form.setFieldsValue({
-        name: customer.name,
-        loyaltyPoints: customer.loyaltyPoints,
-        phone: customer.phone,
+        userName: Employee.userName,
+        role: Employee.role,
+        phone: Employee.phone,
       });
     } else {
       form.resetFields();
@@ -181,73 +158,65 @@ const Customer = () => {
   const handleOk = () => {
     form.validateFields().then((values) => {
       if (modalType === "Add") {
-        let newCustomer = {
-          name: values.name,
-          email: values.email,
+        let newEmployee = {
+          userName: values.userName,
+          role: values.role,
           phone: values.phone,
-          loyaltyPoints: Number(values.loyaltyPoints),
+          password: values.password,
         };
+        console.log(newEmployee);
         axios
-          .post("/api/customer", newCustomer)
+          .post(`/api/employee`, newEmployee)
           .then(({ data }) => {
             message.success(data.message);
-            newCustomer = {
-              ...newCustomer,
-              id: data.id,
-              createdAt: data.createdAt,
-              updatedAt: data.updatedAt,
+            newEmployee = {
+              userName: values.userName,
+              role: values.role,
+              phone: values.phone,
+              password: values.password,
+              createdAt: data.data.createdAt,
+              updatedAt: data.data.updatedAt,
+              id: data.data.id,
             };
-            setData((prevData) => [...prevData, newCustomer]);
+            setData([...data, newEmployee]);
           })
-          .catch((err) => {
-            console.log(err);
-            message.error("Failed to add customer");
-          });
+          .catch((err) => message.error(err.response.data.message));
       } else if (modalType === "Update") {
-        // Destructure properties that should not be included in the update payload
-        const customerId = currentCustomer.id;
-        const {
-          id,
-          firstBoughtAt,
-          updatedAt,
-          purchaseHistory,
-          ...updatedValues
-        } = {
-          ...currentCustomer,
-          name: values.name,
-          loyaltyPoints: Number(values.loyaltyPoints),
+        let newEmployee = {
+          userName: values.userName,
+          role: values.role,
           phone: values.phone,
+          password: values.password,
         };
+        console.log(newEmployee);
         axios
-          .patch(`/api/customer/${customerId}`, updatedValues, {
-            headers,
-          })
-          .then(({ data }) => {
-            message.success(data.message);
-            setData((prevData) =>
-              prevData.map((customer) =>
-                customer.id === currentCustomer.id
-                  ? { ...currentCustomer, ...updatedValues }
-                  : customer
-              )
+          .patch(`/api/employee/${currentEmployee.id}`, newEmployee)
+          .then(({ data: returnupdatedData }) => {
+            const updatedData = data.map((Employee) =>
+              Employee.id === currentEmployee.id
+                ? {
+                    ...Employee,
+                    ...values,
+                    photo: returnupdatedData.data.photo,
+                  }
+                : Employee
             );
+            setData(updatedData);
+            message.success(returnupdatedData.message);
           })
-          .catch((err) => {
-            console.log(err);
-            message.error("Failed to update customer");
-          });
+          .catch((err) => message.error(err.response.data.message));
       } else if (modalType === "Delete") {
         axios
-          .delete(`/api/customer/${currentCustomer.id}`)
+          .delete(`/api/employee/${currentEmployee.id}`)
           .then(({ data }) => {
             message.success(data.message);
             setData((prevData) =>
-              prevData.filter((customer) => customer.id !== currentCustomer.id)
+              prevData.filter((employee) => employee.id !== currentEmployee.id)
             );
           })
           .catch((err) => {
             console.log(err);
-            message.error("Failed to delete customer");
+            message.error("Failed to delete employee");
           });
       }
       setIsModalVisible(false);
@@ -260,12 +229,12 @@ const Customer = () => {
     form.resetFields();
   };
 
-  const menu = (customer) => (
+  const menu = (Employee) => (
     <Menu>
-      <Menu.Item key="1" onClick={() => showModal("Update", customer)}>
+      <Menu.Item key="1" onClick={() => showModal("Update", Employee)}>
         Update
       </Menu.Item>
-      <Menu.Item key="2" onClick={() => showModal("Delete", customer)}>
+      <Menu.Item key="2" onClick={() => showModal("Delete", Employee)}>
         Delete
       </Menu.Item>
     </Menu>
@@ -275,56 +244,57 @@ const Customer = () => {
   const currentPageData = data.slice(startIndex, startIndex + pageSize);
 
   return (
-    <div className="customer-table-container">
-      <div className="header">
-        <h2>{data.length} Customers</h2>
+    <div className="Employee-table-container">
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginBottom: "20px",
+        }}
+      >
+        <h2>Employees Information</h2>
         <div></div>
         <div></div>
         <div></div>
         <div></div>
         <div></div>
         <div></div>
-        <button className="add-customer-button" onClick={addNewCustomer}>
-          Add New Customer
+        <button className="add-customer-button" onClick={addNewEmployee}>
+          Add New Employee
         </button>
       </div>
+
       <table>
         <thead>
           <tr>
             <th>No.</th>
-            <th>Profile</th>
-            <th>Loyalty point</th>
+            <th>Username</th>
             <th>Phone</th>
-            <th>Date</th>
-            <th>Actions</th>
+            <th>Role</th>
+            <th>CreatedAt</th>
+            <th>updatedAt</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {currentPageData.map((customer, index) => (
-            <tr key={customer.id}>
+          {currentPageData.map((Employee, index) => (
+            <tr key={Employee.id}>
               <td>{startIndex + index + 1}</td>
-              <td>
-                <img
-                  src={customer.profileImage}
-                  alt={customer.name}
-                  style={{
-                    width: "40px",
-                    height: "40px",
-                    borderRadius: "50%",
-                    display: "none",
-                  }}
-                />
-                <span>{customer.name}</span>
+              <td className="profile-cell">
+                {/* <img
+                  src={Employee.profileImage}
+                  alt={"Profile"}
+                  style={{ width: "40px", height: "40px", borderRadius: "50%" }}
+                /> */}
+                <span>{Employee.userName}</span>
               </td>
-              <td>{customer.loyaltyPoints}</td>
-              <td>{customer.phone}</td>
+              <td>{Employee.phone}</td>
+              <td>{Employee.role}</td>
+              <td>{Employee.createdAt}</td>
+              <td>{Employee.updatedAt}</td>
+
               <td>
-                Create: {customer.createdAt}
-                <br />
-                Edit: {customer.updatedAt}
-              </td>
-              <td>
-                <Dropdown overlay={() => menu(customer)} trigger={["click"]}>
+                <Dropdown overlay={() => menu(Employee)} trigger={["click"]}>
                   <EllipsisOutlined style={{ cursor: "pointer" }} />
                 </Dropdown>
               </td>
@@ -352,7 +322,7 @@ const Customer = () => {
 
       <Modal
         title={
-          modalType === "Add" ? "Add New Customer" : `${modalType} Customer`
+          modalType === "Add" ? "Add New Employee" : `${modalType} Employee`
         }
         visible={isModalVisible}
         onOk={handleOk}
@@ -360,27 +330,40 @@ const Customer = () => {
       >
         <Form form={form} layout="vertical">
           <Form.Item
-            name="name"
-            label="Name"
-            rules={[{ required: true, message: "Please input the name!" }]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="loyaltyPoints"
-            label="Loyalty point"
-            rules={[{ required: true, message: "Please input loyalty points" }]}
+            name="userName"
+            label="userName"
+            rules={[{ required: true, message: "Please input the username!" }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
             name="phone"
-            label="Phone"
+            label="Phone Number"
             rules={[
               { required: true, message: "Please input the phone number!" },
             ]}
           >
             <Input />
+          </Form.Item>
+          {modalType !== "Delete" && (
+            <Form.Item
+              name="password"
+              label="Password"
+              rules={[{ required: false, message: "Please input password" }]}
+            >
+              <Input />
+            </Form.Item>
+          )}
+          <Form.Item
+            name="role"
+            label="Role"
+            rules={[{ required: true, message: "Please select a role" }]}
+          >
+            <Select placeholder="Select a role" defaultValue={"staff"}>
+              {roles.map((role) => (
+                <Option key={role.id} value={role.name}></Option>
+              ))}
+            </Select>
           </Form.Item>
         </Form>
       </Modal>
@@ -388,4 +371,4 @@ const Customer = () => {
   );
 };
 
-export default Customer;
+export default Employee;

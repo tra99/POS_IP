@@ -1,120 +1,400 @@
-import React from 'react';
-import { Card, List, Avatar, Button } from 'antd';
-import '../style/Menu.css';
-
-const fruitMenu = [
-  { name: 'Apple', price: '$2.50', quantity: 50, picture: 'src/assets/apple.png' },
-  { name: 'Banana', price: '$1.20', quantity: 100, picture: 'src/assets/banana.png' },
-  { name: 'Orange', price: '$1.80', quantity: 80, picture: 'src/assets/orange.png' },
-  { name: 'Strawberry', price: '$3.00', quantity: 40, picture: 'src/assets/strawberry.png' },
-  { name: 'Grapes', price: '$2.00', quantity: 70, picture: 'src/assets/grapes.png' },
-  { name: 'Pineapple', price: '$3.50', quantity: 30, picture: 'src/assets/pineapple.webp' },
-  { name: 'Mango', price: '$2.75', quantity: 60, picture: 'src/assets/mango.png' },
-  { name: 'Watermelon', price: '$4.00', quantity: 20, picture: 'src/assets/watermelon.webp' },
-  { name: 'Apple', price: '$2.50', quantity: 50, picture: 'src/assets/apple.png' },
-  { name: 'Banana', price: '$1.20', quantity: 100, picture: 'src/assets/banana.png' },
-  { name: 'Orange', price: '$1.80', quantity: 80, picture: 'src/assets/orange.png' },
-  { name: 'Strawberry', price: '$3.00', quantity: 40, picture: 'src/assets/strawberry.png' },
-  { name: 'Grapes', price: '$2.00', quantity: 70, picture: 'src/assets/grapes.png' },
-  { name: 'Pineapple', price: '$3.50', quantity: 30, picture: 'src/assets/pineapple.webp' },
-  { name: 'Mango', price: '$2.75', quantity: 60, picture: 'src/assets/mango.png' },
-  { name: 'Watermelon', price: '$4.00', quantity: 20, picture: 'src/assets/watermelon.webp' },
-  { name: 'Apple', price: '$2.50', quantity: 50, picture: 'src/assets/apple.png' },
-  { name: 'Banana', price: '$1.20', quantity: 100, picture: 'src/assets/banana.png' },
-  { name: 'Orange', price: '$1.80', quantity: 80, picture: 'src/assets/orange.png' },
-  { name: 'Strawberry', price: '$3.00', quantity: 40, picture: 'src/assets/strawberry.png' },
-  { name: 'Grapes', price: '$2.00', quantity: 70, picture: 'src/assets/grapes.png' },
-  { name: 'Pineapple', price: '$3.50', quantity: 30, picture: 'src/assets/pineapple.webp' },
-  { name: 'Mango', price: '$2.75', quantity: 60, picture: 'src/assets/mango.png' },
-  { name: 'Watermelon', price: '$4.00', quantity: 20, picture: 'src/assets/watermelon.webp' },
-  { name: 'Apple', price: '$2.50', quantity: 50, picture: 'src/assets/apple.png' },
-  { name: 'Banana', price: '$1.20', quantity: 100, picture: 'src/assets/banana.png' },
-  { name: 'Orange', price: '$1.80', quantity: 80, picture: 'src/assets/orange.png' },
-  { name: 'Strawberry', price: '$3.00', quantity: 40, picture: 'src/assets/strawberry.png' },
-  { name: 'Grapes', price: '$2.00', quantity: 70, picture: 'src/assets/grapes.png' },
-  { name: 'Pineapple', price: '$3.50', quantity: 30, picture: 'src/assets/pineapple.webp' },
-];
-const productCategory = [
-  { name: 'Fruite', picture: 'src/assets/fruiteCategory.png' },
-  { name: 'Drink', picture: 'src/assets/fruiteCategory.png' },
-  { name: 'Food', picture: 'src/assets/fruiteCategory.png' },
-  { name: 'SkinCare', picture: 'src/assets/fruiteCategory.png' },
-  { name: 'Meal', picture: 'src/assets/fruiteCategory.png' },
-  { name: 'kitchen', picture: 'src/assets/fruiteCategory.png' },
-  { name: 'Medicine', picture: 'src/assets/fruiteCategory.png' },
-  { name: 'Accessaries', picture: 'src/assets/fruiteCategory.png' },
-  { name: 'Study', picture: 'src/assets/fruiteCategory.png' },
-
-
-];
+import React, { useState, useEffect } from "react";
+import {
+  Card,
+  List,
+  Avatar,
+  Button,
+  Drawer,
+  Radio,
+  Input,
+  Tabs,
+  Form,
+  Select,
+  message,
+} from "antd";
+import "../style/Menu.css";
+import axios from "axios";
 
 const Menu = () => {
+  //react
+  const [fruitMenu, setFruitMenu] = useState([]);
+  const [productCategory, setProductCategory] = useState([]);
+  const [productPage, setProductPage] = useState(1);
+  const [cart, setCart] = useState([]);
+  const [quantities, setQuantities] = useState({});
+  const [drawerVisible, setDrawerVisible] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState("cash");
+  const [givenAmount, setGivenAmount] = useState(0);
+  const [customer, setCustomer] = useState(null);
+  const [customers, setCustomers] = useState([]);
+
+  const taxRate = 0.05;
+  const discount = 0; // Add logic for discount if needed
+
+  useEffect(() => {
+    axios.get("/api/customer").then(({ data: response }) => {
+      setCustomers(response.data);
+    });
+
+    axios
+      .get(`/api/category`)
+      .then(({ data }) => {
+        console.log(data);
+        const { data: categories } = data;
+        setProductCategory(categories);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  //vue
+  // const fruitMenu = ref([])
+  // fruitMenu.value = [adsjhdajshdja]
+
+  useEffect(() => {
+    axios
+      .get(`/api/product?page=${productPage}`)
+      .then(({ data }) => {
+        console.log(data);
+        const { data: products } = data;
+        console.log(products);
+        setFruitMenu((prevProduct) => [...prevProduct, ...products]);
+        console.log(fruitMenu);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [productPage]);
+
+  const handleAddToCart = (item) => {
+    setCart([...cart, item]);
+    setQuantities({
+      ...quantities,
+      [item.name]: (quantities[item.name] || 0) + 1,
+    });
+  };
+
+  const handleIncrement = (item) => {
+    setQuantities({
+      ...quantities,
+      [item.name]: (quantities[item.name] || 0) + 1,
+    });
+  };
+
+  const handleDecrement = (item) => {
+    if (quantities[item.name] > 1) {
+      setQuantities({
+        ...quantities,
+        [item.name]: quantities[item.name] - 1,
+      });
+    } else {
+      setCart(cart.filter((cartItem) => cartItem.name !== item.name));
+      setQuantities({
+        ...quantities,
+        [item.name]: 0,
+      });
+    }
+  };
+
+  const handleCheckout = () => {
+    alert("Proceed to payment");
+
+    const modifyCart = cart.map((item) => ({
+      productId: item.id,
+      quantity: Number(quantities[item.name]),
+    }));
+
+    const orderData = {
+      customerId: customer.id,
+      employeeId: "employee1", //todo grab this from the profile local storage
+      paidCash: Number(givenAmount),
+      orderDetails: modifyCart,
+    };
+    axios
+      .post("/api/order", orderData)
+      .then(({ data }) => {
+        message.success(data.message);
+      })
+      .catch((err) => {
+        console.log(err);
+        message.error("Failed to place order.");
+      });
+    console.log(orderData);
+  };
+
+  const showDrawer = () => {
+    setDrawerVisible(true);
+  };
+
+  const closeDrawer = () => {
+    setDrawerVisible(false);
+  };
+
+  const handlePaymentMethodChange = (e) => {
+    setPaymentMethod(e.target.value);
+  };
+
+  const handleGivenAmountChange = (e) => {
+    setGivenAmount(parseFloat(e.target.value) || 0);
+  };
+
+  const handleLogin = (values) => {
+    setCustomer({ phoneNumber: values.phoneNumber, id: values.id });
+    alert(`Customer with phone number ${values.phoneNumber} logged in.`);
+  };
+
+  const handleRegister = (values) => {
+    const newCustomer = {
+      name: values.name,
+      phone: values.phone,
+      loyaltyPoints: 0,
+    };
+
+    axios
+      .post("/api/customer", newCustomer)
+      .then(({ data: registerCustomerData }) => {
+        message.success(registerCustomerData.message);
+        setCustomers((prevData) => [
+          ...prevData,
+          { ...newCustomer, id: registerCustomerData.data.id },
+        ]);
+        setCustomer({
+          ...newCustomer,
+          id: registerCustomerData.data.id,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        message.error("Failed to add customer");
+      });
+  };
+
+  const handleCustomerChange = (customerId) => {
+    const selectedCustomer = customers.find((c) => c.id === customerId);
+    setCustomer(selectedCustomer);
+  };
+
+  const calculateTotal = () => {
+    const subtotal = cart.reduce((total, item) => {
+      return total + item.price * quantities[item.name];
+    }, 0);
+    const tax = subtotal * taxRate;
+    const total = subtotal - discount;
+
+    return { subtotal, tax, total };
+  };
+
+  const { subtotal, tax, total } = calculateTotal();
+
+  console.log(customer);
+
   return (
     <div>
-      <div className='menu-manager'>
-      <div className="category">
-        <div className="category-text">
-          <h2 className="text-category1">Category</h2>
-          <span className="text-category2" onClick={() => alert('See more clicked')}>
-            See more ...
-          </span>
+      <div className="menu-manager">
+        <div className="category">
+          <div className="category-text">
+            <h2 className="text-category1">Category</h2>
+            <span
+              className="text-category2"
+              onClick={() => alert("See more clicked")}
+            >
+              See more ...
+            </span>
+          </div>
+        </div>
+        <div className="menu-manager">
+          <div
+            // className="menu-container"
+            style={{
+              display: "flex",
+              width: "100vh",
+              gap: "2rem",
+              overflowX: "scroll",
+            }}
+          >
+            {productCategory.map((productCategory) => (
+              <Card className="menu-card1">
+                <img
+                  src={productCategory.photo}
+                  style={{
+                    width: "120px",
+                    aspectRatio: "1/1",
+                    overflow: "hidden",
+                  }}
+                  alt={productCategory.name}
+                />
+                {/* {productCategory.name} */}
+              </Card>
+            ))}
+          </div>
         </div>
       </div>
-      <div className="menu-manager">
-
-      <div className="menu-container">
-        <Card className="menu-card1">
-          <List
-            grid={{ gutter: 16, column: 9 }}
-            dataSource={productCategory}
-            renderItem={item => (
-              <List.Item>
-                <Card className='productCover' onClick={() => alert('See category')}>
-                  <img src={item.picture} alt={item.name} className="category-image" />
-
-                </Card> 
-              </List.Item>
-            )}
-          />
-        </Card>
-      </div>
-    </div>
-      </div>
 
       <div className="menu-manager">
-      <div className="category">
-        <div className="category-text2">
-          <h2 className="text-category1">Category</h2>
-          <span className="text-category2" onClick={() => alert('See more clicked')}>
-            See more ...
-          </span>
+        <div className="category">
+          <div className="category-text2">
+            <h2 className="text-category1">Category</h2>
+            <span
+              className="text-category2"
+              onClick={() => setProductPage(productPage + 1)}
+            >
+              See more ...
+            </span>
+          </div>
+        </div>
+        <div className="menu-container">
+          <Card title="Fruit Menu" className="menu-card">
+            <List
+              grid={{ gutter: 16, column: 6 }} // Changed from 4 to 6
+              dataSource={fruitMenu}
+              renderItem={(item) => (
+                <List.Item>
+                  <Card
+                    className="product-card"
+                    cover={
+                      <img
+                        src={item.photo}
+                        alt={item.name}
+                        className="fruit-image"
+                      />
+                    }
+                    actions={[
+                      quantities[item.name] ? (
+                        <div>
+                          <Button onClick={() => handleDecrement(item)}>
+                            -
+                          </Button>
+                          <span style={{ margin: "0 10px" }}>
+                            {quantities[item.name]}
+                          </span>
+                          <Button onClick={() => handleIncrement(item)}>
+                            +
+                          </Button>
+                        </div>
+                      ) : (
+                        <Button onClick={() => handleAddToCart(item)}>
+                          Add
+                        </Button>
+                      ),
+                    ]}
+                  >
+                    <Card.Meta
+                      title={item.name}
+                      description={`Price: $${item.price.toFixed(
+                        2
+                      )} | Quantity: ${item.stock}`}
+                    />
+                  </Card>
+                </List.Item>
+              )}
+            />
+          </Card>
         </div>
       </div>
-      <div className="menu-container">
-        <Card title="Fruit Menu" className="menu-card">
-          <List
-            grid={{ gutter: 16, column: 6 }} // Changed from 4 to 6
-            dataSource={fruitMenu}
-            renderItem={item => (
-              <List.Item>
-                <Card className='product-card'
-                  cover={<img src={item.picture} alt={item.name} className="fruit-image" />}
-                  actions={[<Button onClick={() => handleAddToCart(item.name)}>Add</Button>]}
+      <Button type="primary" onClick={showDrawer}>
+        View Cart ({cart.length})
+      </Button>
+      <Drawer
+        title="Shopping Cart"
+        placement="right"
+        onClose={closeDrawer}
+        visible={drawerVisible}
+      >
+        <List
+          dataSource={cart}
+          renderItem={(item, index) => (
+            <List.Item key={index}>
+              <List.Item.Meta
+                avatar={<Avatar src={item.photo} />}
+                title={item.name}
+                description={`Price: $${item.price.toFixed(2)} | Quantity: ${
+                  quantities[item.name]
+                } | Total: $${(item.price * quantities[item.name]).toFixed(2)}`}
+              />
+            </List.Item>
+          )}
+        />
+        <div className="cart-summary">
+          <p>Subtotal: ${subtotal.toFixed(2)}</p>
+          {/* <p>Tax (5%): ${tax.toFixed(2)}</p> */}
+          <p>Discount: ${discount.toFixed(2)}</p>
+          <p>
+            <strong>Total: ${total.toFixed(2)}</strong>
+          </p>
+        </div>
+        <Radio.Group onChange={handlePaymentMethodChange} value={paymentMethod}>
+          <Radio value="cash">Cash</Radio>
+        </Radio.Group>
+        <Input
+          type="number"
+          placeholder="Enter amount given by client"
+          onChange={handleGivenAmountChange}
+          style={{ marginTop: "16px" }}
+        />
+        <Button
+          type="primary"
+          onClick={handleCheckout}
+          style={{ marginTop: "16px" }}
+          disabled={!customer?.id || givenAmount < total}
+        >
+          Proceed to Payment
+        </Button>
+        <Tabs defaultActiveKey="1" style={{ marginTop: "16px" }}>
+          <Tabs.TabPane tab="Login" key="1">
+            <Form onFinish={handleLogin}>
+              <Form.Item
+                name="customer"
+                label="Customer"
+                rules={[
+                  { required: true, message: "Please select a customer!" },
+                ]}
+              >
+                <Select
+                  placeholder="Select a phone number"
+                  // defaultValue={selectedCategory || ""}
+                  onChange={handleCustomerChange}
                 >
-                  <Card.Meta
-                    title={item.name}
-                    description={`Price: ${item.price} | Quantity: ${item.quantity}`}
-                  />
-                </Card>
-              </List.Item>
-            )}
-          />
-        </Card>
-      </div>
+                  {customers.map((c) => (
+                    <Option key={c.id} value={c.id}>
+                      {c.phone + " - " + c.name}
+                    </Option>
+                  ))}
+                </Select>
+              </Form.Item>
+              <Form.Item>
+                {/* <Button type="primary" htmlType="submit">
+                  Login
+                </Button> */}
+              </Form.Item>
+            </Form>
+          </Tabs.TabPane>
+          <Tabs.TabPane tab="Register" key="2">
+            <Form onFinish={handleRegister}>
+              <Form.Item
+                name="name"
+                rules={[{ required: true, message: "Please input the name!" }]}
+              >
+                <Input placeholder="Name" />
+              </Form.Item>
+              <Form.Item
+                name="phone"
+                rules={[
+                  { required: true, message: "Please input the phone number!" },
+                ]}
+              >
+                <Input placeholder="Phone Number" />
+              </Form.Item>
+              <Form.Item>
+                <Button type="primary" htmlType="submit">
+                  Register
+                </Button>
+              </Form.Item>
+            </Form>
+          </Tabs.TabPane>
+        </Tabs>
+      </Drawer>
     </div>
-
-    </div>
-    
   );
 };
 
