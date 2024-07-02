@@ -277,7 +277,9 @@ const Product = () => {
                 <span>{product.name}</span>
               </td>
               <td>{product.categoryId}</td>
-              <td>{product.stock} unit</td>
+              <td>{product.stock} unit{
+                  product.stock<10 && <p style={{color:"red",display:"inline"}}> low in stock</p>
+                }</td>
               <td>${product.price}</td>
               <td>{product.createdAt}</td>
               <td>

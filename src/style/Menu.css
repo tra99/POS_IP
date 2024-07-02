@@ -6,6 +6,7 @@
 
 .menu-container {
   display: grid;
+  position: relative;
   grid-template-columns: 1fr;
   gap: 16px;
 }

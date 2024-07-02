@@ -290,6 +290,9 @@ const Menu = () => {
           </div>
         </div>
         <div className="menu-container">
+          <Button style={{width:"200px",position:"absolute",left:"970px",top:"-30px"}} type="primary" onClick={showDrawer}>
+            View Cart ({cart.length})
+          </Button>
           <Card title="Menu" className="menu-card">
             <List
               grid={{ gutter: 16, column: 6 }} // Changed from 4 to 6
@@ -338,9 +341,7 @@ const Menu = () => {
           </Card>
         </div>
       </div>
-      <Button type="primary" onClick={showDrawer}>
-        View Cart ({cart.length})
-      </Button>
+      
       <Drawer
         title="Shopping Cart"
         placement="right"

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Modal, Input, Form, Menu, Dropdown, Button, message } from "antd";
 import "../style/Order.css";
 import axios from "axios";
-import { EllipsisOutlined, PlusCircleOutlined } from "@ant-design/icons";
+import { EllipsisOutlined, } from "@ant-design/icons";
 
 const pageSize = 10;
 
@@ -130,11 +130,11 @@ const Order = () => {
                   alt={order.name}
                   style={{ width: "40px", height: "40px", borderRadius: "50%" }}
                 /> */}
-                <span>{order.customer.name}</span>
+                <span>{order.customer?.name}</span>
               </td>
               <td>
                 {order.orderDetails
-                  .map((o) => o.product.name + " " + o.quantity + " PCS")
+                  .map((o) => o.product?.name + " " + o.quantity + " PCS")
                   .join(", ")}
               </td>
               <td>${order.paidCash}</td>

@@ -156,7 +156,7 @@ const App = () => {
                 <Route path="/product" element={<Product />} />
                 <Route path="/order" element={<Order />} />
                 <Route path="/customer" element={<Customer />} />
-                <Route path="/employee" element={<Employee />} />
+                {auth?.profile?.role==='admin' &&<Route  path="/employee"  element={ <Employee  />} />}
                 <Route path="*" element={<Navigate to="/menu" />} />
               </Routes>
             </Content>
