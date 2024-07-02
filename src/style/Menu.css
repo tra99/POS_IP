@@ -1,7 +1,8 @@
 .menu-card {
-    max-height: 80vh;
+    max-height: 90vh;
     overflow-y: auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
   }
   
   .menu-container {
@@ -77,8 +78,9 @@
   /* background: #B0EAF6; */
 }
 .menu-card1 {
-  margin: 0 auto;
-  width: auto;
+  margin: 0;
+  width: fit-content;
+  /* width: 1248px; */
   /* background: #B0EAF6; */
   /* height: 122px; */
   height: auto;
@@ -160,6 +162,7 @@
 
 .normal-categories {
   /* grid-template-row: auto; */
+  width: 1200px;
   display: flex;
   grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); 
   justify-items: stretch;
@@ -173,7 +176,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px auto;
+  margin: 10px auto;
 }
 
 .category-image {

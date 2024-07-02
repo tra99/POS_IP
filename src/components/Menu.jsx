@@ -25,12 +25,14 @@ const productCategory = [
   { name: 'Fruit', picture: 'src/assets/fruiteCategory.png' },
   { name: 'Drink', picture: 'src/assets/fruiteCategory.png' },
   { name: 'Food', picture: 'src/assets/fruiteCategory.png' },
-  // { name: 'SkinCare', picture: 'src/assets/fruiteCategory.png' },
+  { name: 'SkinCare', picture: 'src/assets/fruiteCategory.png' },
   // { name: 'Meal', picture: 'src/assets/fruiteCategory.png' },
   // { name: 'Kitchen', picture: 'src/assets/fruiteCategory.png' },
   // { name: 'Medicine', picture: 'src/assets/fruiteCategory.png' },
   // { name: 'Accessories', picture: 'src/assets/fruiteCategory.png' },
   // { name: 'Study', picture: 'src/assets/fruiteCategory.png' },
+  // { name: 'Fruit', picture: 'src/assets/fruiteCategory.png' },
+
 ];
 
 const Menu = () => {
@@ -133,7 +135,7 @@ const Menu = () => {
               <div className={`category-list ${productCategory.length <= 3 ? 'few-categories' : 'normal-categories'}`}>
                 {productCategory.map((item, index) => (
                   <div key={index} className="category-item">
-                    <Card className='productCover' onClick={() => alert('See category...')}>
+                    <Card className='productCover' onClick={() => alert('See category')}>
                       <img src={item.picture} alt={item.name} className="category-image" />
                     </Card>
                   </div>
