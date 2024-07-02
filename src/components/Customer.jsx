@@ -189,13 +189,13 @@ const Customer = () => {
         };
         axios
           .post("/api/customer", newCustomer)
-          .then(({ data }) => {
-            message.success(data.message);
+          .then(({ data: addedCustomer }) => {
+            message.success(addedCustomer.message);
             newCustomer = {
               ...newCustomer,
-              id: data.id,
-              createdAt: data.createdAt,
-              updatedAt: data.updatedAt,
+              id: addedCustomer.data.id,
+              firstBoughtAt: addedCustomer.data.firstBoughtAt,
+              updatedAt: addedCustomer.data.updatedAt,
             };
             setData((prevData) => [...prevData, newCustomer]);
           })
@@ -219,9 +219,7 @@ const Customer = () => {
           phone: values.phone,
         };
         axios
-          .patch(`/api/customer/${customerId}`, updatedValues, {
-            headers,
-          })
+          .patch(`/api/customer/${customerId}`, updatedValues)
           .then(({ data }) => {
             message.success(data.message);
             setData((prevData) =>
@@ -319,7 +317,7 @@ const Customer = () => {
               <td>{customer.loyaltyPoints}</td>
               <td>{customer.phone}</td>
               <td>
-                Create: {customer.createdAt}
+                Create: {customer.firstBoughtAt}
                 <br />
                 Edit: {customer.updatedAt}
               </td>

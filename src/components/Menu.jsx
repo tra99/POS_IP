@@ -14,12 +14,14 @@ import {
 } from "antd";
 import "../style/Menu.css";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 const Menu = () => {
   //react
   const [fruitMenu, setFruitMenu] = useState([]);
   const [productCategory, setProductCategory] = useState([]);
   const [productPage, setProductPage] = useState(1);
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [cart, setCart] = useState([]);
   const [quantities, setQuantities] = useState({});
   const [drawerVisible, setDrawerVisible] = useState(false);
@@ -30,6 +32,10 @@ const Menu = () => {
 
   const taxRate = 0.05;
   const discount = 0; // Add logic for discount if needed
+
+  const location = useLocation(); // Get the location object
+  const searchParams = new URLSearchParams(location.search); // Parse the query string
+  const searchQuery = searchParams.get("search"); // Get the search query from the URL
 
   useEffect(() => {
     axios.get("/api/customer").then(({ data: response }) => {
@@ -52,20 +58,57 @@ const Menu = () => {
   // const fruitMenu = ref([])
   // fruitMenu.value = [adsjhdajshdja]
 
+  // useEffect(() => {
+  //   axios
+  //     .get(`/api/product?page=${productPage}&categoryid=${}`)
+  //     .then(({ data }) => {
+  //       console.log(data);
+  //       const { data: products } = data;
+  //       console.log(products);
+  //       setFruitMenu((prevProduct) => [...prevProduct, ...products]);
+  //       console.log(fruitMenu);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, [productPage]);
   useEffect(() => {
+    let url = `/api/product?page=${productPage}`;
+    if (selectedCategoryId) {
+      url += `&categoryid=${selectedCategoryId}`;
+    }
+    if (searchQuery) {
+      url += `&search=${searchQuery}`;
+    }
     axios
-      .get(`/api/product?page=${productPage}`)
+      .get(url)
       .then(({ data }) => {
         console.log(data);
         const { data: products } = data;
-        console.log(products);
         setFruitMenu((prevProduct) => [...prevProduct, ...products]);
         console.log(fruitMenu);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [productPage]);
+  }, [productPage, selectedCategoryId, searchQuery]);
+
+  // axios
+  //   .get(`/api/product?page=${productPage}`)
+  //   .then(({ data }) => {
+  //     const { data: products } = data;
+  //     setFruitMenu((prevProduct) => [...prevProduct, ...products]);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+  // }, [productPage, selectedCategoryId]);
+
+  const handleCategoryClick = (categoryId) => {
+    setSelectedCategoryId(categoryId);
+    setProductPage(1); // Reset page number when category changes
+    setFruitMenu([]); // Clear previous products
+  };
 
   const handleAddToCart = (item) => {
     setCart([...cart, item]);
@@ -194,7 +237,7 @@ const Menu = () => {
       <div className="menu-manager">
         <div className="category">
           <div className="category-text">
-            <h2 className="text-category1">Category</h2>
+            <h2 className="text-category1">Categories Lists</h2>
             <span
               className="text-category2"
               onClick={() => alert("See more clicked")}
@@ -204,29 +247,32 @@ const Menu = () => {
           </div>
         </div>
         <div className="menu-manager">
-          <div
-            // className="menu-container"
-            style={{
-              display: "flex",
-              width: "100vh",
-              gap: "2rem",
-              overflowX: "scroll",
-            }}
-          >
-            {productCategory.map((productCategory) => (
-              <Card className="menu-card1">
-                <img
-                  src={productCategory.photo}
-                  style={{
-                    width: "120px",
-                    aspectRatio: "1/1",
-                    overflow: "hidden",
-                  }}
-                  alt={productCategory.name}
-                />
-                {/* {productCategory.name} */}
-              </Card>
-            ))}
+          <div className="menu-container">
+            <Card className="menu-card1">
+              {/* <div className='category-list'> */}
+              <div
+                className={`category-list ${
+                  productCategory.length <= 3
+                    ? "few-categories"
+                    : "normal-categories"
+                }`}
+              >
+                {productCategory.map((item, index) => (
+                  <div key={index} className="category-item">
+                    <Card
+                      className="productCover"
+                      onClick={() => handleCategoryClick(item.id)}
+                    >
+                      <img
+                        src={item.photo}
+                        alt={item.name}
+                        className="category-image"
+                      />
+                    </Card>
+                  </div>
+                ))}
+              </div>
+            </Card>
           </div>
         </div>
       </div>
@@ -234,7 +280,7 @@ const Menu = () => {
       <div className="menu-manager">
         <div className="category">
           <div className="category-text2">
-            <h2 className="text-category1">Category</h2>
+            <h2 className="text-category1">Products</h2>
             <span
               className="text-category2"
               onClick={() => setProductPage(productPage + 1)}
@@ -244,7 +290,7 @@ const Menu = () => {
           </div>
         </div>
         <div className="menu-container">
-          <Card title="Fruit Menu" className="menu-card">
+          <Card title="Menu" className="menu-card">
             <List
               grid={{ gutter: 16, column: 6 }} // Changed from 4 to 6
               dataSource={fruitMenu}

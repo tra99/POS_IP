@@ -1,11 +1,12 @@
-import { useContext, useEffect } from "react";
-import { Layout, theme, Input, Space } from "antd";
+import { useContext, useEffect, useState } from "react";
+import { Layout, theme, Input, Space, Modal, message } from "antd";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
   useLocation,
+  useNavigate,
 } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Dashboard from "./components/Dashboard";
@@ -15,7 +16,7 @@ import Customer from "./components/Customer";
 import Employee from "./components/Employee";
 import Product from "./components/Product";
 import Login from "./authentication/Login";
-import { BellOutlined } from "@ant-design/icons";
+import { LogoutOutlined } from "@ant-design/icons";
 import "./style/Dashboard.css";
 import axios from "axios";
 import Category from "./components/Category";
@@ -25,13 +26,17 @@ const { Content, Sider } = Layout;
 
 const App = () => {
   const { auth } = useContext(AuthContext);
+  const [isModalVisible, setIsModalVisible] = useState(false); // State to manage modal visibility
   const { Search } = Input;
-  const onSearch = (value, _e, info) => console.log(info?.source, value);
+  const navigate = useNavigate();
+
+  // const onSearch = (value, _e, info) => console.log(info?.source, value);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
   const location = useLocation(); // Hook to get the current location
+  const { logout } = useContext(AuthContext);
 
   // Mapping routes to titles
   const routeTitles = {
@@ -56,6 +61,30 @@ const App = () => {
 
   // Get the current route's title
   const currentTitle = routeTitles[location.pathname] || "Dashboard";
+
+  const onSearch = (value) => {
+    navigate(`/menu?search=${value}`);
+    window.location.reload();
+  };
+
+  // Event handler to toggle modal visibility
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleLogout = () => {
+    logout();
+    message.success("successfully logged out");
+    // navigate("/login");
+  };
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -85,26 +114,36 @@ const App = () => {
             <div className="header1">
               <h1 className="text1">{currentTitle}</h1> {/* Dynamic title */}
               <div className="text2">
-                {location.pathname !== "/product" && (
-                  <Space direction="vertical">
-                    <Search
-                      placeholder="input search text"
-                      onSearch={onSearch}
+                {location.pathname !== "/product" &&
+                  location.pathname !== "/employee" &&
+                  location.pathname !== "/customer" &&
+                  location.pathname !== "/order" && (
+                    <div
                       style={{
-                        width: 400,
-                        height: 50,
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
                       }}
-                    />
-                  </Space>
-                )}
-                <div className="image-container">
-                  <BellOutlined style={{ fontSize: "20px" }} />
+                    >
+                      <Search
+                        placeholder="input search text"
+                        onSearch={onSearch}
+                        // style={{
+                        //   width: 400,
+                        //   height: 50,
+                        // }}
+                      />
+                    </div>
+                  )}
+                <div onClick={handleLogout} className="image-container">
+                  <LogoutOutlined style={{ fontSize: "20px" }} />
                 </div>
                 <div className="image-container">
                   <img
-                    src="src/assets/cat.png"
+                    src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
                     alt="Logo"
                     className="login-logo"
+                    onClick={showModal} // Add onClick event to show modal
                   />
                 </div>
               </div>
@@ -122,6 +161,20 @@ const App = () => {
               </Routes>
             </Content>
           </Layout>
+          <Modal
+            title="User Information"
+            visible={isModalVisible}
+            onOk={handleOk}
+            onCancel={handleCancel}
+          >
+            {auth && (
+              <>
+                <p>Username: {auth?.profile?.userName}</p>
+                <p>Phone Number: {auth?.profile?.phone}</p>
+                <p>Role: {auth?.profile?.role}</p>
+              </>
+            )}
+          </Modal>
         </>
       ) : (
         <Content style={{ margin: "0 16px" }}>

@@ -15,6 +15,7 @@ const Login = () => {
     setLoading(false);
     if (success) {
       navigate("/dashboard");
+      message.success("Login successful.");
     } else {
       message.error("Login failed. Please check your credentials.");
     }

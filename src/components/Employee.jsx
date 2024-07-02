@@ -167,16 +167,17 @@ const Employee = () => {
         console.log(newEmployee);
         axios
           .post(`/api/employee`, newEmployee)
-          .then(({ data }) => {
-            message.success(data.message);
+          .then(({ data: resultAdded }) => {
+            console.log(resultAdded);
+            message.success(resultAdded.message);
             newEmployee = {
               userName: values.userName,
               role: values.role,
               phone: values.phone,
               password: values.password,
-              createdAt: data.data.createdAt,
-              updatedAt: data.data.updatedAt,
-              id: data.data.id,
+              createdAt: resultAdded.data.purchaseAt,
+              updatedAt: resultAdded.data.updatedAt,
+              id: resultAdded.data.id,
             };
             setData([...data, newEmployee]);
           })

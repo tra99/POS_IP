@@ -138,8 +138,9 @@ const Order = () => {
                   .join(", ")}
               </td>
               <td>${order.paidCash}</td>
-              <td>${order.returnCash}</td>
+
               <td>${order.totalPrice}</td>
+              <td>${order.returnCash}</td>
               <td>{order.customer.phone}</td>
               <td>{order.purchaseDate}</td>
               <td>
