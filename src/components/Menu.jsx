@@ -156,6 +156,12 @@ const Menu = () => {
           </div>
         </div>
         <div className="menu-container">
+          <div className='view_cart'>
+            <Button type="primary" onClick={showDrawer}>
+              View Cart ({cart.length})
+            </Button>
+          </div>
+          
           <Card title="Fruit Menu" className="menu-card">
             <List
               grid={{ gutter: 16, column: 6 }}
@@ -188,9 +194,7 @@ const Menu = () => {
         </div>
       </div>
 
-      <Button type="primary" onClick={showDrawer}>
-        View Cart ({cart.length})
-      </Button>
+      
       <Drawer
         title="Shopping Cart"
         placement="right"
