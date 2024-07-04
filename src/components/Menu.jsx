@@ -14,7 +14,7 @@ import {
 } from "antd";
 import "../style/Menu.css";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation,useNavigate } from "react-router-dom";
 
 const Menu = () => {
   //react
@@ -124,6 +124,7 @@ const Menu = () => {
       [item.name]: (quantities[item.name] || 0) + 1,
     });
   };
+  const navigate = useNavigate();
 
   const handleDecrement = (item) => {
     if (quantities[item.name] > 1) {
@@ -142,6 +143,7 @@ const Menu = () => {
 
   const handleCheckout = () => {
     alert("Proceed to payment");
+    navigate('/order');
 
     const modifyCart = cart.map((item) => ({
       productId: item.id,
